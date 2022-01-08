@@ -33,7 +33,7 @@ class ProductPage(BasePage):
         product_name: str = product_name_el.text
 
         found_product_alert = False
-        alerts: list[WebElement] = self.browser.find_elements(*ProductPageLocators.ALLERT_MESSAGES)
+        alerts: list[WebElement] = self.browser.find_elements(*ProductPageLocators.ALERT_MESSAGES)
         for alert in alerts:
             if "has been added" in alert.text:
                 found_product_alert = True
@@ -58,7 +58,7 @@ class ProductPage(BasePage):
         product_price: str = product_price_el.text
 
         found_basket_info_alert = False
-        alerts: list[WebElement] = self.browser.find_elements(*ProductPageLocators.ALLERT_MESSAGES)
+        alerts: list[WebElement] = self.browser.find_elements(*ProductPageLocators.ALERT_MESSAGES)
         for alert in alerts:
             if "basket total" in alert.text:
                 found_basket_info_alert = True
@@ -68,3 +68,11 @@ class ProductPage(BasePage):
                 except NoSuchElementException:
                     assert False, "Basket total value is not presented in Basket total alert!"
         assert found_basket_info_alert, "Basket total alert is not found!"
+
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ALERT_MESSAGES), "Success message is presented, but should not be!"
+
+
+    def should_be_disappeared_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.ALERT_MESSAGES), "Success message is presented, but should be disappeared!"
