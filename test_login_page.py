@@ -1,3 +1,4 @@
+from selenium.webdriver.remote.webdriver import WebDriver
 from .pages.login_page import LoginPage
 
 
@@ -10,13 +11,13 @@ def test_login_page_url(browser):
     page.should_be_login_url()
 
 
-def test_login_page_should_be_login_form(browser):
+def test_login_page_should_be_login_form(browser: WebDriver):
     page = LoginPage(browser, link)
     page.open()
     page.should_be_login_form()
 
 
-def test_login_page_should_be_registration_form(browser):
+def test_login_page_should_be_registration_form(browser: WebDriver):
     page = LoginPage(browser, link)
     page.open()
     page.should_be_registration_form()
