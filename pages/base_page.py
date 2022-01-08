@@ -54,6 +54,15 @@ class BasePage():
         link.click()
 
 
+    def go_to_basket_page(self):
+        link: WebElement = None
+        try:
+            link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
+        except NoSuchElementException:
+            assert False, "Basket link is not presented!"
+        link.click()
+
+
     def solve_quize_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
