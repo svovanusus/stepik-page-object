@@ -1,9 +1,11 @@
 import math
 from selenium.common.exceptions import NoAlertPresentException, NoSuchElementException, TimeoutException
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
+from .locators import BasePageLocators
 
 
 class BasePage():
@@ -41,6 +43,15 @@ class BasePage():
         except TimeoutException:
             return False
         return True
+
+
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link in not presented!"
+
+
+    def go_to_login_page(self):
+        link: WebElement = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
 
 
     def solve_quize_and_get_code(self):
